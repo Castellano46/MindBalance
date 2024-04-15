@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.mindbalance.ui.screens.dashboard.DashboardScreen
+import com.example.mindbalance.ui.screens.splash.SplashScreen
 import com.example.mindbalance.ui.screens.unauthenticated.login.LoginScreen
 import com.example.mindbalance.ui.screens.unauthenticated.registration.RegistrationScreen
 
@@ -16,8 +17,19 @@ fun NavGraphBuilder.unauthenticatedGraph(navController: NavController) {
 
     navigation(
         route = NavigationRoutes.Unauthenticated.NavigationRoute.route,
-        startDestination = NavigationRoutes.Unauthenticated.Login.route
+        startDestination = "splash"
     ) {
+
+        // Splash
+        composable(route = "splash") { // Agrega la pantalla de Splash
+            SplashScreen {
+                navController.navigate(NavigationRoutes.Unauthenticated.Login.route) {
+                    popUpTo(NavigationRoutes.Unauthenticated.NavigationRoute.route) {
+                        inclusive = true
+                    }
+                }
+            }
+        }
 
         // Login
         composable(route = NavigationRoutes.Unauthenticated.Login.route) {

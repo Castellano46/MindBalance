@@ -11,10 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mindbalance.ui.screens.NavigationRoutes
 import com.example.mindbalance.ui.screens.authenticatedGraph
 import com.example.mindbalance.ui.screens.unauthenticatedGraph
+import com.example.mindbalance.ui.screens.splash.SplashScreen 
 import com.example.mindbalance.ui.theme.MindBalanceTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,7 +38,6 @@ fun MainApp() {
     ) {
         MainAppNavHost()
     }
-
 }
 
 @Composable
@@ -47,15 +48,25 @@ fun MainAppNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = NavigationRoutes.Unauthenticated.NavigationRoute.route
+        startDestination = "splash"
     ) {
+        // Splash screen
+        composable(route = "splash") {
+            SplashScreen {
+                navController.navigate(NavigationRoutes.Unauthenticated.NavigationRoute.route) {
+                    popUpTo(NavigationRoutes.Unauthenticated.NavigationRoute.route) {
+                        inclusive = true
+                    }
+                }
+            }
+        }
+
         // Unauthenticated user flow screens
         unauthenticatedGraph(navController = navController)
 
         // Authenticated user flow screens
         authenticatedGraph(navController = navController)
     }
-
 }
 
 @Preview(showBackground = true)
