@@ -68,3 +68,8 @@ val md_theme_dark_scrim = Color(0xFF000000)
 
 
 val seed = Color(0xFF0C2C44)
+
+val gradientColors = listOf(
+    Color(21, 50, 101), // Azul dark
+    Color(89, 150, 176) // Azul light
+)
